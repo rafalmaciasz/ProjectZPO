@@ -10,7 +10,7 @@ class Product:
     def __init__(self, name, price):
         self.name: str = name
         self.price: float = price
-asdfasfgasdg
+
     def __eq__(self, other):
         return None  # FIXME: zwróć odpowiednią wartość
 
