@@ -5,6 +5,7 @@ from typing import Optional, List, TypeVar, Dict
 from abc import ABC, abstractmethod
 import re
 
+
 class Product:
 
     def __init__(self, name: str, price: float) -> None:
@@ -21,19 +22,17 @@ class Product:
 
 
 class TooManyProductsFoundError(Exception):
-
     pass
 
 
 class Server(ABC):
-
     n_max_returned_entries: int = 5
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__()
 
     def get_entries(self, n_letters: int = 1) -> List[Product]:
-        name_pat = '^[a-zA-Z]{{{0}}}\\d{{3,3}}$'.format(n_letters)
+        name_pat = '^[a-zA-Z]{0}\\d{{2,4}}$'.format(n_letters)
         entries = [product for product in self.all_products() if re.fullmatch(name_pat, product.name)]
         if len(entries) > Server.n_max_returned_entries: raise TooManyProductsFoundError
         return sorted(entries, key=lambda entry: entry.price)
@@ -62,7 +61,9 @@ class MapServer(Server):
     def all_products(self) -> List[Product]:
         return list(self.products.values())
 
+
 BaseOrDerivedT = TypeVar('BaseOrDerivedT', bound=Server)
+
 
 class Client:
 
