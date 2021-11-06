@@ -7,7 +7,7 @@ import re
 
 class Product:
 
-    def __init__(self, name: str, price: float):
+    def __init__(self, name: str, price: float) -> None:
         self.name: str = name
         self.price: float = price
 
@@ -29,7 +29,7 @@ class Server(ABC):
 
     n_max_returned_entries: int = 5
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__()
 
     def get_entries(self, n_letters: int = 1) -> List[Product]:
@@ -45,7 +45,7 @@ class Server(ABC):
 
 class ListServer(Server):
 
-    def __init__(self, products: List[Product], *args, **kwargs):
+    def __init__(self, products: List[Product], *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.products: List[Product] = products
 
@@ -55,7 +55,7 @@ class ListServer(Server):
 
 class MapServer(Server):
 
-    def __init__(self, products: List[Product], *args, **kwargs):
+    def __init__(self, products: List[Product], *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.products: Dict[str, Product] = {product.name: product.price for product in products}
 
@@ -66,7 +66,7 @@ BaseOrDerivedT = TypeVar('BaseOrDerivedT', bound=Server)
 
 class Client:
 
-    def __init__(self, server: BaseOrDerivedT):
+    def __init__(self, server: BaseOrDerivedT) -> None:
         self.server: BaseOrDerivedT = server
 
     def get_total_price(self, n_letters: Optional[int]) -> Optional[float]:
