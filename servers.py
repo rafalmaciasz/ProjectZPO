@@ -32,7 +32,7 @@ class Server(ABC):
         super().__init__()
 
     def get_entries(self, n_letters: int = 1) -> List[Product]:
-        name_pat = '^[a-zA-Z]{{0}}\\d{{2,4}}$'.format(n_letters)
+        name_pat = '^[a-zA-Z]{{{0}}}\\d{{2,4}}$'.format(n_letters)
         entries = [product for product in self.all_products() if re.fullmatch(name_pat, product.name)]
         if len(entries) > Server.n_max_returned_entries: raise TooManyProductsFoundError
         return sorted(entries, key=lambda entry: entry.price)
