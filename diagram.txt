@@ -41,8 +41,8 @@ class TooManyProductsFoundError {
 Server <|-- ListServer 
 Server <|-- MapServer 
 Client o-- Server 
-MapServer o-- Product 
-ListServer o-- Product
+MapServer *-- Product 
+ListServer *-- Product
 Exception <|-- TooManyProductsFoundError
 TooManyProductsFoundError <.. Server : "<< throws >>"
 @enduml
