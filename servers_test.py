@@ -48,7 +48,7 @@ class ClientTest(unittest.TestCase):
             self.assertEqual(3, client.get_total_price(2))
 
     
-    def test_total_price_for_normal_execution1(self):
+    def test_total_price_for_normal_execution2(self):
         products = [Product('PP234',2), Product('PP237',2),Product('PP238',1),Product('PP235',2),Product('PP239',1),Product('PP240',2)]
         for server_type in server_types:
             server = server_type(products)
@@ -56,7 +56,7 @@ class ClientTest(unittest.TestCase):
             self.assertEqual(None, client.get_total_price(2))
     
     
-    def test_total_price_for_normal_execution2(self):
+    def test_total_price_for_normal_execution3(self):
         products = [Product('PP234',2), Product('PP237',2),Product('PP238',1),Product('PP235',2)]
         for server_type in server_types:
             server = server_type(products)
