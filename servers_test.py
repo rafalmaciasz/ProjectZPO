@@ -8,6 +8,14 @@ from servers import ListServer, Product, Client, MapServer, Server, TooManyProdu
 server_types = (ListServer, MapServer)
 
 
+class ProductTest(unittest.TestCase):
+    def test_name_validity(self):
+        with self.assertRaises(ValueError):
+            Product('fh', 2)
+        with self.assertRaises(ValueError):
+            Product('64gs', 5)
+
+
 class ServerTest(unittest.TestCase):
 
     def test_get_entries_returns_proper_entries(self):
@@ -62,6 +70,6 @@ class ClientTest(unittest.TestCase):
             server = server_type(products)
             client = Client(server)
             self.assertEqual(None, client.get_total_price(3))
-    
+
 if __name__ == '__main__':
     unittest.main()

@@ -9,7 +9,12 @@ import re
 class Product:
 
     def __init__(self, name: str, price: float) -> None:
-        self.name: str = name
+
+        if name[0].isalpha() and name[-2:-1].isdigit():
+            self.name: str = name
+        else:
+            raise ValueError
+
         self.price: float = price
 
     def __eq__(self, other):
@@ -19,6 +24,7 @@ class Product:
 
     def __hash__(self):
         return hash((self.name, self.price))
+
 
 
 class TooManyProductsFoundError(Exception):
@@ -32,9 +38,9 @@ class Server(ABC):
         super().__init__()
 
     def get_entries(self, n_letters: int = 1) -> List[Product]:
-        name_pat = '^[a-zA-Z]{{{n}}}\\d{{2,4}}$'.format(n=n_letters)
+        name_pat = '^[a-zA-Z]{{{n}}}\\d{{2,3}}$'.format(n=n_letters)
         entries = [product for product in self.all_products() if re.fullmatch(name_pat, product.name)]
-        if len(entries) > Server.n_max_returned_entries: raise TooManyProductsFoundError
+        if len(entries) > self.n_max_returned_entries: raise TooManyProductsFoundError
         return sorted(entries, key=lambda entry: entry.price)
 
     @abstractmethod
